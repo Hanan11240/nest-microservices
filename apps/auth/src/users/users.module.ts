@@ -10,6 +10,7 @@ import { UserRepositry } from './users.repositry';
     {name:UserDocument.name,schema:UserSchema }
   ])],
   controllers: [UsersController],
-  providers: [UsersService,UserRepositry]
+  providers: [UsersService,UserRepositry],
+  exports:[UsersService]
 })
 export class UsersModule {}

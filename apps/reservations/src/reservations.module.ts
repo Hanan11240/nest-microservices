@@ -5,7 +5,8 @@ import { DatabaseModule } from '@app/common';
 import { ReservationsRepositry } from './reservations.repositry';
 import { ReservationDocument, ReservationsSchema } from './models/reservation.schema';
 import { LoggerModule } from '@app/common';
-
+import { ConfigModule } from '@nestjs/config';
+import  * as Joi from 'joi'
 @Module({
   imports: [DatabaseModule, 
     DatabaseModule.forFeature(
@@ -13,7 +14,14 @@ import { LoggerModule } from '@app/common';
         { name: ReservationDocument.name, schema: ReservationsSchema }
       ]
       ), 
-      LoggerModule
+      LoggerModule,
+      ConfigModule.forRoot({
+        isGlobal:true,
+        validationSchema:Joi.object({
+          DATABASE_URI:Joi.string().required(),
+          PORT:Joi.number().required()
+        })
+      })
  
 ],
   controllers: [ReservationsController],
