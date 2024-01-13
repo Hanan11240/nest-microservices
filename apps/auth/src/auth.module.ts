@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { LocalStrategy } from '../Strategy/local.strategy';
+import { JwtStrategy } from '../Strategy/jwt.strategy';
 
 @Module({
   imports: [UsersModule,LoggerModule,
@@ -16,7 +17,8 @@ import { LocalStrategy } from '../Strategy/local.strategy';
         DATABASE_URI:Joi.string().required(),
         JWT_SECRET:Joi.string().required(),
         JWT_EXPIRATION:Joi.string().required(),
-        PORT:Joi.number().required()
+        HTTP_PORT:Joi.number().required(),
+        TCP_PORT:Joi.number().required()
       })
     }),
     JwtModule.registerAsync({
@@ -29,6 +31,6 @@ import { LocalStrategy } from '../Strategy/local.strategy';
     inject:[ConfigService]
    })],
   controllers: [AuthController],
-  providers: [AuthService,LocalStrategy],
+  providers: [AuthService,LocalStrategy,JwtStrategy],
 })
 export class AuthModule {}
