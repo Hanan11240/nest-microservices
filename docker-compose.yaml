@@ -33,7 +33,7 @@ services:
       - ./apps/payments/.env
     volumes:
       - .:/usr/src/app
-    notifications:
+  notifications:
     build:
       context: .
       dockerfile: ./apps/notifications/Dockerfile
